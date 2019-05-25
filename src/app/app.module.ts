@@ -1,0 +1,39 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { FormsModule} from '@angular/forms';
+
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
+import { TrainingComponent } from './training/training.component';
+import { CurrentTrainingComponentComponent } from './training/current-training-component/current-training-component.component';
+import { NewTrainingComponentComponent } from './training/new-training-component/new-training-component.component';
+import { PastTrainingComponentComponent } from './training/past-training-component/past-training-component.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+@NgModule({
+  declarations: [
+    AppComponent,
+    SignupComponent,
+    LoginComponent,
+    TrainingComponent,
+    CurrentTrainingComponentComponent,
+    NewTrainingComponentComponent,
+    PastTrainingComponentComponent,
+    WelcomeComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    MaterialModule,//outsource material imports
+    FlexLayoutModule,
+    FormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
