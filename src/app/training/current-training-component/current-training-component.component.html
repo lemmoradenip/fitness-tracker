@@ -1,3 +1,14 @@
-<p>
-  current-training-component works!
-</p>
+<section
+  fxFlex
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  class="current-training"
+>
+  <mat-progress-spinner color="warn" value="{{progress}}" mode="determinate">
+  </mat-progress-spinner>
+  <h1>{{progress}}%</h1>
+  <p>Keep on going, you can do it!</p>
+
+  <button mat-raised-button color="warn" (click)="onStop()">Stop</button>
+  <button mat-raised-button color="accent" (click)="onPausePlay()">Pause</button>
+</section>
