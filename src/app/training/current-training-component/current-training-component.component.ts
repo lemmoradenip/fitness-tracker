@@ -1,6 +1,8 @@
+import { TrainingService } from './../training.service';
 import { StopTrainingComponent } from './stop-training.components';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Exercise } from '../exercise.model';
 @Component({
   selector: 'app-current-training-component',
   templateUrl: './current-training-component.component.html',
@@ -8,15 +10,17 @@ import { MatDialog } from '@angular/material';
 })
 export class CurrentTrainingComponentComponent implements OnInit {
   @Output() trainingExit = new EventEmitter<void>();
+  // selectedExercise: Exercise;
   progress = 0;
   timer: number;
   isPaused = false;
   pauseplay = 'Pause';
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private trainingservice: TrainingService) { }
 
   ngOnInit() {
     this.onStopOrResume();
+    // this.selectedExercise = this.trainingservice.getSelectedExercise();
   }
   /*
   below code has the ability to pass value to a dialog
@@ -24,18 +28,19 @@ export class CurrentTrainingComponentComponent implements OnInit {
   */
 
   onStopOrResume() {
+    const step = this.trainingservice.getSelectedExercise().duration / 100 * 1000;
     this.timer = setInterval(() => {
-
       if (this.progress >= 100) {
+        this.trainingservice.completeExercise();
         clearInterval(this.timer);
       } else {
-        this.progress += 5;
+        this.progress += 1;
       }
 
       // if (!this.isPaused) {
       //   clearInterval(this.timer);
       // }
-    }, 1000);
+    }, step);
 
   }
 
@@ -49,7 +54,8 @@ export class CurrentTrainingComponentComponent implements OnInit {
     // observable for the dialog
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.trainingExit.emit();
+        // this.trainingExit.emit();
+        this.trainingservice.cancellExercise(this.progress);
       } else {
         this.onStopOrResume();
       }
