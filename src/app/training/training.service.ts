@@ -33,10 +33,13 @@ export class TrainingService {
       date: new Date(),
       state: 'cancelled',
       duration: this.runningExercise.duration * (progress / 100),
-      calories: this.runningExercise.duration * (progress / 100)
+      calories: this.runningExercise.calories * (progress / 100)
     }); // add the date of completion
     this.runningExercise = null; // clear
     this.exerciseChange.next(null); // clear
+  }
+  getCompletedOrCancelledExercises() {
+    return this.passexercises.slice(); // slice may your object in array form
   }
 
 }

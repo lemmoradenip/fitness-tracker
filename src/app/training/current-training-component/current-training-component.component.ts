@@ -34,7 +34,7 @@ export class CurrentTrainingComponentComponent implements OnInit {
         this.trainingservice.completeExercise();
         clearInterval(this.timer);
       } else {
-        this.progress += 1;
+        this.progress += 10;
       }
 
       // if (!this.isPaused) {
