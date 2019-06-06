@@ -12,7 +12,7 @@
           <mat-label>Exercises</mat-label>
           <mat-select name="lstexercise" ngModel required>
             <mat-option
-              *ngFor="let exercise of exercises"
+              *ngFor="let exercise of exercises | async"
               [value]="exercise.id"
             >
               {{ exercise.name }}

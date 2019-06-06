@@ -6,7 +6,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
 
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -37,12 +42,16 @@ import { StopTrainingComponent } from './training/current-training-component/sto
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MaterialModule,//outsource material imports
+    MaterialModule, // outsource material imports modules
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase, 'fitness-tracker'), // imports firebase/app needed for everything
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    AngularFireStorageModule // imports firebase/storage only needed for storage features
   ],
-  providers: [AuthService, TrainingService ],
+  providers: [AuthService, TrainingService],
   bootstrap: [AppComponent],
-  entryComponents: [StopTrainingComponent]//angular be prepare to use it
+  entryComponents: [StopTrainingComponent] // angular be prepare to use it
 })
 export class AppModule { }
