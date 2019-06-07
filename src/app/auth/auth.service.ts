@@ -5,43 +5,51 @@ import { User } from './user.model';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { MatSnackBar } from '@angular/material';
+import { UIService } from '../shared/ui.service';
 
 @Injectable() // use to inject services to service.
 export class AuthService {
   authChange = new Subject<boolean>(); // can hold payload boolean
   private user: User;
   private IsAuthenticated: boolean;
-  constructor(private router: Router, private afAuth: AngularFireAuth, private trainingservice: TrainingService) {
+  constructor(
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private trainingservice: TrainingService,
+    private snackbar: MatSnackBar,
+    private uiservice: UIService
+  ) {
 
   }
 
   // registeruser
   registerUser(authdata: Authdata) {
-    // this.user = {
-    //   email: authdata.email,
-    //   userid: Math.round(Math.random() * 10000).toString()
-    // };
+    this.uiservice.loadingChanged.next(true);
     this.afAuth.auth
       .createUserWithEmailAndPassword(authdata.email, authdata.password)
       .then(result => {
         console.log(result);
-        //  this.onSuccesfully();
+        this.uiservice.loadingChanged.next(false);
       })
       .catch(error => {
-        console.log('ERROR:' + error);
+        this.snackbar.open(error.message, null, { duration: 30000 });
+        this.uiservice.loadingChanged.next(false);
       });
 
   }
 
   // firestore authentication: token is used to authenticate the login
   login(authdata: Authdata) {
-
+    this.uiservice.loadingChanged.next(true);
     this.afAuth.auth.signInWithEmailAndPassword(authdata.email, authdata.password)
       .then(result => {
         console.log(result);
+        this.uiservice.loadingChanged.next(false);
       })
       .catch(error => {
-        console.log('ERROR:' + error);
+        this.snackbar.open(error.message, null, { duration: 30000 });
+        this.uiservice.loadingChanged.next(false);
       });
   }
 

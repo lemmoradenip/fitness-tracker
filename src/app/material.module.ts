@@ -19,7 +19,8 @@ import {
   MatCheckboxModule,
   MatTableModule,
   MatSortModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatSnackBarModule
 } from '@angular/material';
 @NgModule(
   {
@@ -40,7 +41,9 @@ import {
       MatCheckboxModule,
       MatTableModule,
       MatSortModule,
-      MatPaginatorModule
+      MatPaginatorModule,
+      MatSnackBarModule
+
     ],
 
     exports: [MatFormFieldModule,
@@ -60,7 +63,8 @@ import {
       MatCheckboxModule,
       MatTableModule,
       MatSortModule,
-      MatPaginatorModule
+      MatPaginatorModule,
+      MatSnackBarModule
     ]
   }
 )
