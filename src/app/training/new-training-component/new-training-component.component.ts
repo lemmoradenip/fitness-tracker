@@ -30,6 +30,8 @@ export class NewTrainingComponentComponent implements OnInit, OnDestroy {
     this.trainingservice.startExercise(form.value.lstexercise);
   }
   ngOnDestroy() {
-    this.exercisesSubscription.unsubscribe();
+    if (this.exercisesSubscription) {
+      this.exercisesSubscription.unsubscribe();
+    }
   }
 }
