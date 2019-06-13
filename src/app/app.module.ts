@@ -15,8 +15,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { UIService } from './shared/ui.service';
-import { TrainingModule } from './training/training.module';
-import { SharedModule } from './shared/shared.module';
+// import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,12 +31,9 @@ import { SharedModule } from './shared/shared.module';
     FlexLayoutModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase, 'fitness-tracker'), // imports firebase/app needed for everything
-    // AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-    // AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    // AngularFireStorageModule, // imports firebase/storage only needed for storage features
-    SharedModule,
+    // SharedModule,
     AuthModule,
-    TrainingModule
+
   ],
   providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent],

@@ -1,3 +1,5 @@
+// import { AngularFireModule } from '@angular/fire';
+import { TrainingRoutingModule } from './training-routing.module';
 import { NgModule } from '@angular/core';
 import { TrainingComponent } from './training.component';
 import { CurrentTrainingComponentComponent } from './current-training-component/current-training-component.component';
@@ -17,8 +19,9 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     SharedModule,
+    TrainingRoutingModule // part of lazy loading, this will be rendered only after the event
   ],
-  exports: [],
+
   entryComponents: [StopTrainingComponent] // angular be prepare to use it
 
 })
