@@ -1,3 +1,4 @@
+
 import { TrainingService } from './../training/training.service';
 import { Subject } from 'rxjs';
 import { Authdata } from './auth-data.mode';
@@ -5,8 +6,9 @@ import { User } from './user.model';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { MatSnackBar } from '@angular/material';
 import { UIService } from '../shared/ui.service';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../app.reducer';
 
 @Injectable() // use to inject services to service.
 export class AuthService {
@@ -17,41 +19,43 @@ export class AuthService {
     private router: Router,
     private afAuth: AngularFireAuth,
     private trainingservice: TrainingService,
-    private snackbar: MatSnackBar,
-    private uiservice: UIService
-  ) {
-
+    private uiservice: UIService,
+    private store: Store<{ ui: fromApp.State }>) {
   }
 
   // registeruser
   registerUser(authdata: Authdata) {
-    this.uiservice.loadingChanged.next(true);
+    // this.uiservice.loadingChanged.next(true);
+    this.store.dispatch({ type: 'START_LOADING' });
     this.afAuth.auth
       .createUserWithEmailAndPassword(authdata.email, authdata.password)
       .then(result => {
-        console.log(result);
-        this.uiservice.loadingChanged.next(false);
+       // console.log(result);
+        // this.uiservice.loadingChanged.next(false);
+        this.store.dispatch({ type: 'STOP_LOADING' });
       })
       .catch(error => {
-        // this.snackbar.open(error.message, null, { duration: 30000 });
+
         this.uiservice.showSnackBar(error.message, null, 3000);
-        this.uiservice.loadingChanged.next(false);
+        // this.uiservice.loadingChanged.next(false);
+        this.store.dispatch({ type: 'STOP_LOADING' });
       });
 
   }
 
   // firestore authentication: token is used to authenticate the login
   login(authdata: Authdata) {
-    this.uiservice.loadingChanged.next(true);
+    // this.uiservice.loadingChanged.next(true);
+    this.store.dispatch({ type: 'START_LOADING' });
     this.afAuth.auth.signInWithEmailAndPassword(authdata.email, authdata.password)
       .then(result => {
-        console.log(result);
-        this.uiservice.loadingChanged.next(false);
+      //  console.log(result);
+        this.store.dispatch({ type: 'STOP_LOADING' });
       })
       .catch(error => {
         // this.snackbar.open(error.message, null, { duration: 30000 });
         this.uiservice.showSnackBar(error.message, null, 3000);
-        this.uiservice.loadingChanged.next(false);
+        this.store.dispatch({ type: 'STOP_LOADING' });
       });
   }
 

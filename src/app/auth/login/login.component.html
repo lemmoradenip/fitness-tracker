@@ -39,7 +39,7 @@
       />
       <mat-hint align="end">{{ pwinput.value?.length }} /6</mat-hint>
     </mat-form-field>
-    <button mat-raised-button color="warn">Submit</button>
-    <mat-spinner *ngIf="loadingState"></mat-spinner>
+    <button mat-raised-button color="warn" >Submit</button>
+    <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
   </form>
 </section>

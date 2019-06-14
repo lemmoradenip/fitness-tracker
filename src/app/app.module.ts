@@ -15,6 +15,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { UIService } from './shared/ui.service';
+import {StoreModule} from '@ngrx/store';
+import { appReducer} from './app.reducer';
 // import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { UIService } from './shared/ui.service';
     AngularFireModule.initializeApp(environment.firebase, 'fitness-tracker'), // imports firebase/app needed for everything
     // SharedModule,
     AuthModule,
+    StoreModule.forRoot({ui: appReducer})
 
   ],
   providers: [AuthService, TrainingService, UIService],
